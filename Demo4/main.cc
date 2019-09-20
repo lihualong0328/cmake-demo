@@ -1,6 +1,16 @@
+/*
+ * @Description: 
+ * @Copyright(c) 2019 enst.org.cn. All rights reserved.
+ * @version: 1.0.0.1
+ * @Filename:
+ * @Author: lihualong
+ * @Date: 2019-09-20 10:32:20
+ * @LastEditors: lihualong
+ * @LastEditTime: 2019-09-20 10:32:20
+ */
 #include <stdio.h>
 #include <stdlib.h>
-#include <config.h>
+#include <config.h> //预定义了 USE_MYMATH 的值
 
 #ifdef USE_MYMATH
   #include <MathFunctions.h>

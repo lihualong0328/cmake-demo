@@ -6,7 +6,7 @@ project (Demo6)
 
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# 检查系统是否支持 pow 函数
+# 检查系统是否支持 pow 函数，放在 configure_file 命令前
 include (${CMAKE_ROOT}/Modules/CheckFunctionExists.cmake)
 check_function_exists (pow HAVE_POW)
 
@@ -23,8 +23,7 @@ if (NOT HAVE_POW)
   set (EXTRA_LIBS ${EXTRA_LIBS} MathFunctions)
 endif (NOT HAVE_POW)
 
-# 查找当前目录下的所有源文件
-# 并将名称保存到 DIR_SRCS 变量
+# 查找当前目录下的所有源文件，并将名称保存到 DIR_SRCS 变量
 aux_source_directory(. DIR_SRCS)
 
 # 指定生成目标

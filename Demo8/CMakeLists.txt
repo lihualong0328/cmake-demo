@@ -61,9 +61,9 @@ do_test (10 5 "is 100000")
 do_test (2 10 "is 1024")
 
 # 构建一个 CPack 安装包
-include (InstallRequiredSystemLibraries)
+include (InstallRequiredSystemLibraries)  # 导入 InstallRequiredSystemLibraries 模块，以便之后导入 CPack 模块
 set (CPACK_RESOURCE_FILE_LICENSE
-  "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+  "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")  # 设置一些 CPack 相关变量，包括版权信息和版本信息
 set (CPACK_PACKAGE_VERSION_MAJOR "${Demo_VERSION_MAJOR}")
 set (CPACK_PACKAGE_VERSION_MINOR "${Demo_VERSION_MINOR}")
-include (CPack)
+include (CPack) # 导入 CPack 模块
