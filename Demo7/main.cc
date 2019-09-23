@@ -1,12 +1,19 @@
+/*
+ * @Description: 
+ * @Copyright(c) 2019 enst.org.cn. All rights reserved.
+ * @version: 1.0.0.1
+ * @Filename:
+ * @Author: lihualong
+ * @Date: 2019-09-20 10:32:20
+ * @LastEditors: lihualong
+ * @LastEditTime: 2019-09-23 21:16:51
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <config.h>
 
-#ifdef HAVE_POW
-  #include <math.h>
-#else
-  #include <MathFunctions.h>
-#endif
+#include "MathFunctions.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -19,17 +26,13 @@ int main(int argc, char *argv[])
         printf("Usage: %s base exponent \n", argv[0]);
         return 1;
     }
+
     double base = atof(argv[1]);
     int exponent = atoi(argv[2]);
     
-#ifdef HAVE_POW
-    printf("Now we use the standard library. \n");
-    double result = pow(base, exponent);
-#else
     printf("Now we use our own Math library. \n");
     double result = power(base, exponent);
-#endif
-    
+
     printf("%g ^ %d is %g\n", base, exponent, result);
     return 0;
 }

@@ -9,6 +9,7 @@ aux_source_directory(. DIR_SRCS)
 
 
 # --------------------------------------------------------------------------------------------------
+message (info "       CMAKE_INCLUDE_CURRENT_DIR: " ${CMAKE_INCLUDE_CURRENT_DIR})
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # 加入一个配置头文件，用于处理 CMake 对源码的设置。这样可以通过预定义一些参数和变量来控制代码生成
@@ -102,4 +103,8 @@ endmacro (do_test)
 do_test (5 2 "is 25")
 do_test (10 5 "is 100000")
 do_test (2 10 "is 1024")
+
+
+
+
 

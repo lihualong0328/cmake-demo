@@ -1,6 +1,5 @@
+//为了在代码中获取版本信息，可修改 config.h.in，添加两个预定义变量
 // the configured options and settings for Tutorial
 #define Demo_VERSION_MAJOR @Demo_VERSION_MAJOR@
 #define Demo_VERSION_MINOR @Demo_VERSION_MINOR@
 
-// does the platform provide pow function?
-#cmakedefine HAVE_POW
