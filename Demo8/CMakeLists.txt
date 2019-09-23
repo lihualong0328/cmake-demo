@@ -37,6 +37,7 @@ install (TARGETS Demo DESTINATION bin)
 install (FILES "${PROJECT_BINARY_DIR}/config.h"
          DESTINATION include)
 
+
 # 启用测试
 enable_testing()
 
@@ -47,6 +48,7 @@ add_test (test_run Demo 5 2)
 add_test (test_usage Demo)
 set_tests_properties (test_usage
   PROPERTIES PASS_REGULAR_EXPRESSION "Usage: .* base exponent")
+
 
 # 定义一个宏，用来简化测试工作
 macro (do_test arg1 arg2 result)
@@ -59,6 +61,7 @@ endmacro (do_test)
 do_test (5 2 "is 25")
 do_test (10 5 "is 100000")
 do_test (2 10 "is 1024")
+
 
 # 构建一个 CPack 安装包
 include (InstallRequiredSystemLibraries)  # 导入 InstallRequiredSystemLibraries 模块，以便之后导入 CPack 模块

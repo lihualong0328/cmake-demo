@@ -4,32 +4,57 @@ cmake_minimum_required (VERSION 2.8)
 # 项目信息
 project (Demo5)
 
+# 查找当前目录下的所有源文件，并将名称保存到 DIR_SRCS 变量
+aux_source_directory(. DIR_SRCS)
+
+
+# --------------------------------------------------------------------------------------------------
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# 加入一个配置头文件，用于处理 CMake 对源码的设置
+# 加入一个配置头文件，用于处理 CMake 对源码的设置。这样可以通过预定义一些参数和变量来控制代码生成
+# 不直接编写config.h，为了方便从 CMakeLists.txt 中导入配置，编写一个 config.h.in，config.h由 CMake 从 config.h.in 生成
 configure_file (
   "${PROJECT_SOURCE_DIR}/config.h.in"
   "${PROJECT_BINARY_DIR}/config.h"
   )
- 
-# 是否使用自己的 MathFunctions 库
-option (USE_MYMATH
-	   "Use provided math implementation" ON)
+
+
+# 是否使用自己的 MathFunctions 库，添加了一个 自定义编译选项 USE_MYMATH，默认值为 ON
+option (USE_MYMATH "Use provided math implementation" ON)
 
 # 是否加入 MathFunctions 库
 if (USE_MYMATH)
   include_directories ("${PROJECT_SOURCE_DIR}/math")  # 提供了一个搜索头文件暂时的根目录
-  add_subdirectory (math)
+  add_subdirectory (math) # 添加 math 子目录
   set (EXTRA_LIBS ${EXTRA_LIBS} MathFunctions)
 endif (USE_MYMATH)
 
-# 查找当前目录下的所有源文件，并将名称保存到 DIR_SRCS 变量
-aux_source_directory(. DIR_SRCS)
 
+# 1. 检查系统环境，例如要用一个平台相关特性时。检查系统是否自带pow()
+include (${CMAKE_ROOT}/Modules/CheckFunctionExists.cmake) # 添加 CheckFunctionExists 宏
+check_function_exists (pow HAVE_POW)  # 测试链接器是否能在链接阶段找到 pow()
+# 2. 预定义相关宏变量，见 config.h.in 
+# 3. 在代码中使用宏和函数，见 main.cc
+
+# 是否加入 MathFunctions 库
+if (NOT HAVE_POW)
+  message (info "       HAVE_POW: " ${HAVE_POW})
+  #include_directories ("${PROJECT_SOURCE_DIR}/math")
+  #add_subdirectory (math)
+  #set (EXTRA_LIBS ${EXTRA_LIBS} MathFunctions)
+endif (NOT HAVE_POW)
+
+
+# --------------------------------------------------------------------------------------------------
 # 指定生成目标
-add_executable(Demo ${DIR_SRCS})
+add_executable (Demo ${DIR_SRCS})
 target_link_libraries (Demo  ${EXTRA_LIBS})
 
+
+# --------------------------------------------------------------------------------------------------
+message (info "       CMAKE_INSTALL_PREFIX: " ${CMAKE_INSTALL_PREFIX})
+set (CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR}/install)
+message (info "       CMAKE_INSTALL_PREFIX: " ${CMAKE_INSTALL_PREFIX})
 
 # 指定安装路径
 install (TARGETS Demo DESTINATION bin)
@@ -37,7 +62,8 @@ install (FILES "${PROJECT_BINARY_DIR}/config.h"
          DESTINATION include)
 
 
-# 启用测试
+# --------------------------------------------------------------------------------------------------
+# 启用测试，CMake 提供 CTest 测试工具
 enable_testing()
 
 # 测试1 : 测试程序是否成功运行并返回 0 值
@@ -76,3 +102,4 @@ endmacro (do_test)
 do_test (5 2 "is 25")
 do_test (10 5 "is 100000")
 do_test (2 10 "is 1024")
+
