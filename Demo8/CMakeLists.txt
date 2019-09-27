@@ -35,7 +35,7 @@ add_subdirectory (commandTest)
 message(info "  1 DIR_SRCS : ${DIR_SRCS}")
 
 add_executable(Demo ${DIR_SRCS})
-target_link_libraries (Demo  ${EXTRA_LIBS})
+target_link_libraries(Demo ${EXTRA_LIBS})
 
 install (TARGETS Demo DESTINATION bin)
 install (FILES "${PROJECT_BINARY_DIR}/config.h"
