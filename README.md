@@ -1,3 +1,13 @@
+<!--
+ * @Description: 
+* @Copyright(c) 2019 enst.org.cn. All rights reserved.
+ * @version: 1.0.0.1
+* @Filename:
+ * @Author: lihualong
+ * @Date: 2019-09-20 10:32:20
+ * @LastEditors: lihualong
+ * @LastEditTime: 2019-09-25 15:51:43
+ -->
 
 CMake-Demo
 =====
@@ -12,4 +22,10 @@ Demo5:
 5. 自定义编译选项
 6. 安装和测试
 
+Demo7:
+1. 添加版本号
+2. 支持debug & release
 
+Demo8:
+1. 打包
+2. commandTest
